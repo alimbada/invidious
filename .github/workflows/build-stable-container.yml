@@ -29,18 +29,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Docker meta
-      #   id: meta
-      #   uses: docker/metadata-action@v5
-      #   with:
-      #     images: quay.io/invidious/invidious
-      #     flavor: |
-      #       latest=false
-      #     tags: |
-      #       type=semver,pattern={{version}}
-      #       type=raw,value=latest
-      #     labels: |
-      #       quay.expires-after=12w
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/alimbada/invidious
+          flavor: |
+            latest=false
+          tags: |
+            type=semver,pattern={{version}}
+            type=raw,value=latest
 
       - name: Build and push Docker AMD64 image for Push Event
         uses: docker/build-push-action@v5
@@ -54,19 +52,17 @@ jobs:
           build-args: |
             "release=1"
 
-      # - name: Docker meta
-      #   id: meta-arm64
-      #   uses: docker/metadata-action@v5
-      #   with:
-      #     images: quay.io/invidious/invidious
-      #     flavor: |
-      #       latest=false
-      #       suffix=-arm64
-      #     tags: |
-      #       type=semver,pattern={{version}}
-      #       type=raw,value=latest
-      #     labels: |
-      #       quay.expires-after=12w
+      - name: Docker meta
+        id: meta-arm64
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/alimbada/invidious
+          flavor: |
+            latest=false
+            suffix=-arm64
+          tags: |
+            type=semver,pattern={{version}}
+            type=raw,value=latest
 
       - name: Build and push Docker ARM64 image for Push Event
         uses: docker/build-push-action@v5
